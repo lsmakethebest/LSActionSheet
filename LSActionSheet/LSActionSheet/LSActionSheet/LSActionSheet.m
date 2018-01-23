@@ -10,25 +10,25 @@
 #import "LSActionSheet.h"
 
 //字体
-#define  LSActionSheetCancelButtonFont  [UIFont systemFontOfSize:16]
-#define  LSActionSheetDestructiveButtonFont  [UIFont systemFontOfSize:16]
-#define  LSActionSheetOtherButtonFont  [UIFont systemFontOfSize:16]
+//title字体
 #define  LSActionSheetTitleLabelFont  [UIFont systemFontOfSize:13]
+//取消按钮
+#define  LSActionSheetCancelButtonFont  [UIFont systemFontOfSize:16]
+//销毁按钮字体
+#define  LSActionSheetDestructiveButtonFont  [UIFont systemFontOfSize:16]
+//其他按钮字体
+#define  LSActionSheetOtherButtonFont  [UIFont systemFontOfSize:16]
 
 //颜色
-#define  LSActionSheetButtonBackgroundColor [UIColor colorWithRed:251/255.0 green:251/255.0 blue:253/255.0 alpha:1]
-#define  LSActionSheetBackgroundColor [UIColor colorWithRed:129/255.0 green:129/255.0 blue:129/255.0 alpha:0.5]
-
-
+//title颜色
 #define  LSActionSheetTitleLabelColor  [UIColor colorWithRed:137/255.0 green:137/255.0 blue:137/255.0 alpha:1]
-
+//取消按钮颜色
 #define  LSActionSheetCancelButtonColor [UIColor blackColor]
-#define  LSActionSheetDestructiveButtonColor   [UIColor redColor]
+//销毁按钮颜色
+#define  LSActionSheetDestructiveButtonColor  [UIColor colorWithRed:226/255.0 green:0/255.0 blue:0/255.0 alpha:1]
+//其他按钮颜色
 #define  LSActionSheetOtherButtonColor  [UIColor blackColor]
 
-#define  LSActionSheetContentViewBackgroundColor [UIColor colorWithRed:251/255.0 green:251/255.0 blue:253/255.0 alpha:0.5]
-
-#define  LSActionSheetButtonHighlightedColor [UIColor colorWithRed:219/255.0 green:219/255.0 blue:219/255.0 alpha:0.5]
 
 //高度
 #define  LSActionSheetCancelButtonHeight 50
@@ -36,18 +36,28 @@
 #define  LSActionSheetOtherButtonHeight 50
 #define  LSActionSheetLineHeight 1.0/[UIScreen mainScreen].scale
 
+
+//颜色
+//按钮默认背景颜色
+#define  LSActionSheetButtonBackgroundColor [UIColor colorWithRed:251/255.0 green:251/255.0 blue:253/255.0 alpha:1]
+//按钮高亮时背景颜色
+#define  LSActionSheetButtonHighlightedColor [UIColor colorWithRed:219/255.0 green:219/255.0 blue:219/255.0 alpha:0.5]
+
+//整体背景阴影颜色
+#define  LSActionSheetBackgroundColor [UIColor colorWithRed:129/255.0 green:129/255.0 blue:129/255.0 alpha:0.5]
+//内容部分背景颜色 也是线的颜色
+#define  LSActionSheetContentViewBackgroundColor [UIColor colorWithRed:231/255.0 green:231/255.0 blue:239/255.0 alpha:0.9]
+
+
+
 //底部取消按钮距离上面按钮距离
-
-#define  LSActionSheetTopMargin 20
-
-#define  LSActionSheetBottomMargin 5
-
-#define  LSActionSheetLeftMargin 20
-
-
+#define  LSActionSheetCancelButtonTopMargin 5
+//title文字顶部底部间隔
+#define  LSActionSheetTitleTopMargin 20
+//title文字左右间隔
+#define  LSActionSheetTitleLeftMargin 20
+//动画时间
 #define  LSActionSheetAnimationTime 0.25
-
-
 
 
 #define  LSActionSheetScreenWidth [UIScreen mainScreen].bounds.size.width
@@ -123,20 +133,20 @@
         titleLabel.textAlignment=NSTextAlignmentCenter;
         titleLabel.text=self.title;
         titleLabel.tag=tag;
-       CGSize size= [self.title boundingRectWithSize:CGSizeMake(LSActionSheetScreenWidth-2*LSActionSheetLeftMargin, MAXFLOAT)
-                           options:NSStringDrawingUsesLineFragmentOrigin
-                              attributes:@{NSFontAttributeName:titleLabel.font}
-                           context:nil]
+        CGSize size= [self.title boundingRectWithSize:CGSizeMake(LSActionSheetScreenWidth-2*LSActionSheetTitleLeftMargin, MAXFLOAT)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName:titleLabel.font}
+                                              context:nil]
         .size;
         
-        titleLabel.frame=CGRectMake(LSActionSheetLeftMargin, LSActionSheetTopMargin,LSActionSheetScreenWidth-2*LSActionSheetLeftMargin ,size.height );
+        titleLabel.frame=CGRectMake(LSActionSheetTitleLeftMargin, LSActionSheetTitleTopMargin,LSActionSheetScreenWidth-2*LSActionSheetTitleLeftMargin ,size.height );
         UIView *view=[[UIView alloc]init];
         view.backgroundColor=LSActionSheetButtonBackgroundColor;
-        view.frame=CGRectMake(0, 0, LSActionSheetScreenWidth, size.height+2*LSActionSheetTopMargin);
+        view.frame=CGRectMake(0, 0, LSActionSheetScreenWidth, size.height+2*LSActionSheetTitleTopMargin);
         [contentView addSubview:view];
         [contentView addSubview:titleLabel];
-        y=size.height+2*LSActionSheetTopMargin+LSActionSheetLineHeight;
-
+        y=size.height+2*LSActionSheetTitleTopMargin+LSActionSheetLineHeight;
+        
     }
     
     for (int i=0; i<self.otherTitles.count; i++) {
@@ -152,13 +162,13 @@
         UIButton *button=[self createButtonWithTitle:self.destructiveTitle color:LSActionSheetDestructiveButtonColor font:LSActionSheetDestructiveButtonFont height:LSActionSheetDestructiveButtonHeight y:y+LSActionSheetLineHeight];
         button.tag=tag;
         [contentView addSubview:button];
-        y+=(LSActionSheetDestructiveButtonHeight+LSActionSheetBottomMargin);
+        y+=(LSActionSheetDestructiveButtonHeight+LSActionSheetCancelButtonTopMargin);
         tag++;
         
     }else{
-        y+=LSActionSheetBottomMargin;
+        y+=LSActionSheetCancelButtonTopMargin;
     }
-
+    
     
     UIButton *cancel=[self  createButtonWithTitle:@"取消" color:LSActionSheetCancelButtonColor font:LSActionSheetCancelButtonFont height:LSActionSheetCancelButtonHeight y:y];
     cancel.tag=tag;
@@ -167,12 +177,16 @@
     
     contentView.backgroundColor=LSActionSheetContentViewBackgroundColor;
     CGFloat maxY= CGRectGetMaxY(contentView.subviews.lastObject.frame);
+    if ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+    {
+        maxY+=34;
+    }
     contentView.frame=CGRectMake(0, self.frame.size.height-maxY, LSActionSheetScreenWidth, maxY) ;
     [self addSubview:contentView];
     
     
     CGRect frame= self.contentView.frame;
-
+    
     CGRect newframe= frame;
     self.alpha=0.1;
     newframe.origin.y=self.frame.size.height;
@@ -180,9 +194,9 @@
     [UIView animateWithDuration:LSActionSheetAnimationTime animations:^{
         self.contentView.frame=frame;
         self.alpha=1;
-
+        
     }completion:^(BOOL finished) {
-
+        
     }];
     
     
@@ -240,3 +254,4 @@
 
 
 @end
+
