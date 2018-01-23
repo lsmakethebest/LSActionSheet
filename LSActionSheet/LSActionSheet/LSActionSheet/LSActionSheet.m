@@ -104,9 +104,8 @@
 
 +(void)showWithTitle:(NSString *)title  destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles block:(LSActionSheetBlock)block
 {
-    [[UIApplication sharedApplication].keyWindow endEditing:YES];
     LSActionSheet *sheet=[[LSActionSheet alloc]init];
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    UIWindow *window=[[UIApplication sharedApplication].delegate window];
     sheet.frame=window.bounds;
     sheet.title=title;
     sheet.destructiveTitle=destructiveTitle;
