@@ -13,9 +13,9 @@
 //title字体
 #define  LSActionSheetTitleLabelFont  [UIFont systemFontOfSize:13]
 //取消按钮
-#define  LSActionSheetCancelButtonFont  [UIFont systemFontOfSize:16]
+#define  LSActionSheetCancelButtonFont  [UIFont systemFontOfSize:18]
 //销毁按钮字体
-#define  LSActionSheetDestructiveButtonFont  [UIFont systemFontOfSize:16]
+#define  LSActionSheetDestructiveButtonFont  [UIFont systemFontOfSize:18]
 //其他按钮字体
 #define  LSActionSheetOtherButtonFont  [UIFont systemFontOfSize:16]
 
@@ -91,7 +91,7 @@
         [tap addTarget:self action:@selector(handleGesture:)];
         [self addGestureRecognizer:tap];
         
-        
+
     }
     return self;
 }
@@ -169,7 +169,13 @@
     }
     
     
-    UIButton *cancel=[self  createButtonWithTitle:@"取消" color:LSActionSheetCancelButtonColor font:LSActionSheetCancelButtonFont height:LSActionSheetCancelButtonHeight y:y];
+    CGFloat cancelHeight=LSActionSheetCancelButtonHeight;
+    if ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+    {
+        cancelHeight+=34;
+    }
+    
+    UIButton *cancel=[self  createButtonWithTitle:@"取消" color:LSActionSheetCancelButtonColor font:LSActionSheetCancelButtonFont height:cancelHeight y:y];
     cancel.tag=tag;
     [contentView addSubview:cancel];
     
@@ -178,8 +184,9 @@
     CGFloat maxY= CGRectGetMaxY(contentView.subviews.lastObject.frame);
     if ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
     {
-        maxY+=34;
+        cancel.contentEdgeInsets=UIEdgeInsetsMake(0, 0, 25, 0);
     }
+    
     contentView.frame=CGRectMake(0, self.frame.size.height-maxY, LSActionSheetScreenWidth, maxY) ;
     [self addSubview:contentView];
     

@@ -29,11 +29,11 @@
 
 - (IBAction)show:(id)sender {
     
-    [LSActionSheet showWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号。" destructiveTitle:@"退出登录" otherTitles:@[@"1111",@"2222"] block:^(int index) {
-        NSLog(@"-----%d",index);
-    }];
+//    [LSActionSheet showWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号。" destructiveTitle:@"退出登录" otherTitles:@[@"1111",@"2222"] block:^(int index) {
+//        NSLog(@"-----%d",index);
+//    }];
 
-//      [LSActionSheet showWithTitle:@"确定退出？确定退出？确定退出？确定退出？确定退出？确定退出？确定退出？确定退出？确定退出？" destructiveTitle:nil otherTitles:@[@"1111",@"2222"] block:nil];
+      [LSActionSheet showWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号。" destructiveTitle:@"退出登录" otherTitles:nil block:nil];
 
 //          [LSActionSheet showWithTitle:nil destructiveTitle:nil otherTitles:@[@"1111",@"2222"] block:nil];
 
